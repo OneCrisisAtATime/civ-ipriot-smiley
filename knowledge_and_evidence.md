@@ -92,45 +92,63 @@ python3 main.py
 
 4. Though everything in Python is an object, it is sometimes said to have four "primitive" types. Examining the three files `smiley.py`, `sad.py`, and `happy.py`, identify which of the following types are used in any of these files, and give an example of each (use an example from the code, if applicable, otherwise provide an example of your own):
 
-   | Type                    | Used? | Example |
-   | ----------------------- | ----- | --------|
-   | int                     | _     | _          |
-   | float                   | _     | _          |
-   | str                     | _     | _          |
-   | bool                    | _     | _          |
+   | Type  | Used? | Example                                                    |
+   |-------|-------|------------------------------------------------------------|
+   | int   | yes   | for pixel in mouth:                                        | ##'pixel' is assigned values from 'mouth' which is a list of integers.
+   |       |       |   self.pixels[pixel] = self.BLANK                          |  
+   | float | yes   | delay=0.25                                                 |
+   | str   | no    | example_ = 'This is an example of the primitive type: str' |
+   | bool  | yes   | wide_open=False                                            |
 
 5. Examining `smiley.py`, provide an example of a class variable and an instance variable (attribute). Explain **why** one is defined as a class variable and the other as an instance variable.
 
-> Your answer here
->
+> Class example: class Smiley
+> Instance example: Y = self.YELLOW
+> Explanation:
+> A **class variable** stores a value that is the same across every object created from that class.  
+> The first example provided displays 'Smiley' a variable used to share a common value across all instances of itself.
+> 
+> An **instance variable** is defined inside a class and is exclusive to each instance of that class.
+> In the second example provided, an instance variable is used for encapsulation by bundling 'self.YELLOW' with a single character, 'Y'. 
+> This helps to keep the data organized and readable. 
 
 6. Examine `happy.py`, and identify the constructor (initializer) for the `Happy` class:
    1. What is the purpose of a constructor (in general) and this one (in particular)?
 
-   > Your answer here
-   >
+   > The purpose of a constructor is to initialize the instance variables of a class when it is created. And to make sure every object 
+   > starts with specific value or a setup logic. In the specific case of the `def __init__(self)` constructor present in `happy.py`, its purpose is to setup rendering logic.
+   > 
 
    2. What statement(s) does it execute (consider the `super` call), and what is the result?
 
-   > Your answer here
+   > The `def __init__(self)` constructor calls the methods `self.draw_mouth()`, `self.draw_eyes()`, as well as the constructor `super().__init__()`. 
+   > Which are responsible for initializing the parent classes and rendering the mouth and eyes.
    >
 
 ### 2.3. Code style
 
 1. What code style is used in the code? Is it likely to be the same as the code style used in the SenseHat? Give to reasons as to why/why not:
 
-> Your answer here
+> The code style used is PEP8. And yes, the class `SenseHat` uses the same code style. As the code is formatted in a mannerism that fits within the constraints
+> of the PEP8 conventions. 
 >
 
 2. List three aspects of this convention you see applied in the code.
 
-> Your answer here
+> a) Consistent indentation
+> b) Clear separation of methods and
+> c) Naming standards that follow standard PEP8 naming conventions.
 >
 
 3. Give two examples of organizational documentation in the code.
 
-> Your answer here
->
+>Example one: 
+> """Mock SenseHAT class. If you have access to a SenseHAT (either via a Raspberry Pi or a SenseHAT emulator), you can use the real SenseHAT class instead of this one.)
+To do that DELETE this file so that it will not shadow the sense_hat class installed in your system.
+You do not need to understand this code to use it for the smiley exercise"""
+> 
+> Example two: 
+> """Updates the GUI using a queue for communication with the main process."""
 
 ### 2.4. Identifying and understanding classes
 
