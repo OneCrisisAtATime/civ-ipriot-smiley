@@ -140,15 +140,19 @@ python3 main.py
 > c) Naming standards that follow standard PEP8 naming conventions.
 >
 
-3. Give two examples of organizational documentation in the code.
+3. Give two examples of organizational documentation in the code. 
 
->Example one: 
+> Example one: 
 > """Mock SenseHAT class. If you have access to a SenseHAT (either via a Raspberry Pi or a SenseHAT emulator), you can use the real SenseHAT class instead of this one.)
-To do that DELETE this file so that it will not shadow the sense_hat class installed in your system.
-You do not need to understand this code to use it for the smiley exercise"""
-> 
+    To do that DELETE this file so that it will not shadow the sense_hat class installed in your system.
+    You do not need to understand this code to use it for the smiley exercise"""
+
 > Example two: 
-> """Updates the GUI using a queue for communication with the main process."""
+>   ############################################################
+    # Uncomment the lines below only if you have multi-processing issues
+    # from multiprocessing import freeze_support
+    # freeze_support()
+    ############################################################
 
 ### 2.4. Identifying and understanding classes
 
@@ -158,19 +162,25 @@ You do not need to understand this code to use it for the smiley exercise"""
   
   Use the following table for your answers:
 
-| Class Name | Super or Sub? | Direct parent(s) |
-| ---------- | ------------- | ---------------- |
-| NotReal    | Sub           | NotRealParent    |
-|   ...      |   ...         |      ...         |
+| Class Name | Super or Sub? | Direct parent(s)  |
+|------------|---------------|-------------------|
+| Blinkable  | Super         |                   |
+| Happy      | Sub           | Smiley, Blinkable |
+| Sad        | Sub           | Smiley            |
+| Smiley     | Super         |                   |
 
 2. Explain the concept of abstraction, giving an example from the project (note "implementing an ABC" is **not** in itself an example of abstraction). (Max 150 words)
 
-> Your answer here
+> Explanation: Abstraction is the process of tucking away implementation information, keeping only features that are essential and
+> relevant to external sources. All for the purpose of making complex systems and data types easier and safer to use. 
+
+> Example: blink()
 >
 
 3. What is the name of the process of deriving from base classes? What is its purpose in this project? (Max 150 words)
 
-> Your answer here
+> When you derive from a base class it's called 'Inheritance'. Its purpose in the project is to allow subclasses, like Happy() and/or Sad(), to inherit variables 
+> and methods from base classes, like Blinkable(), Smiley() and/or SenseHat().
 >
 
 ### 2.5. Compare and contrast classes
@@ -178,28 +188,44 @@ You do not need to understand this code to use it for the smiley exercise"""
 Compare and contrast the classes Happy and Sad.
 
 1. What is the key difference between the two classes?
-   > Your answer here
-   >
+   > Different:
+   >    1. The method draw_eyes(), inside Sad, has flawed logic.
+   >    2. Happy inherits from Blinkable 
+   >    3. There is no blink() method in Sad
+   >    4. The value for the variable 'mouth' differs.
+   
 2. What are the key similarities?
-   > Your answer here
-   >
+   > Both are subclasses
+   > They both inherit from Smiley
+   > Both have a draw_eyes() and draw_mouth() method.
+    
 3. What difference stands out the most to you and why?
-   > Your answer here
-   >
+   > The flawed method draw_eyes(), inside Sad. It overwrites the value of eyes[]
+   > inside the loop, and causes it to become a tuple. 
+   > This causes line 25, 'for pixel in eyes:', to become invalid after the first iteration. 
+   > Ultimately breaking the loop.
+   > 
+   > Whereas the method draw_eyes() in Happy runs smoothly. Iterating over the eyes[] list and setting 
+   > each corresponding pixel to the correct colour value based on the condition.
+
 4. How does this difference affect the functionality of these classes
-   > Your answer here
-   >
+   > The broken draw_eyes() method in Sad will result in an error not long after it's called.   
+   > Whilst the fully functional draw_eyes() method inside Happy will run as intended, without any issues.
 
 ### 2.6. Where is the Sense(Hat) in the code?
 
 1. Which class(es) utilize the functionality of the SenseHat?
-   > Your answer here
+   > The classes that utilize the functionality of the SenseHat are Smiley and Happy. 
    >
 2. Which of these classes directly interact with the SenseHat functionalities?
-   > Your answer here
+   > Smiley is the class that directly interacts with the SenseHat functionalities.
    >
 3. Discuss the hiding of the SenseHAT in terms of encapsulation (100-200 Words)
-   > Your answer here
+   > In Smiley, the instance attribute 'self.sense_hat' is assigned the base class 'SenseHat'.
+   > This action gives controlled access to 'SenseHat'. Using public methods as intermediaries 
+   > to get and set data and restricting direct access to data that is declared private. 
+   > This process prevents external code from accidentally or intentionally making modifications. 
+   > Ensuring the integrity of the data. ----------->> currently 40 words short. (;w;)
    >
 
 ### 2.7. Sad Smileys Can’t Blink (Or Can They?)
