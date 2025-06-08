@@ -171,17 +171,13 @@ python3 main.py
 
 2. Explain the concept of abstraction, giving an example from the project (note "implementing an ABC" is **not** in itself an example of abstraction). (Max 150 words)
 
-> Explanation: Abstraction is the process of tucking away implementation information, keeping only features that are essential and
-> relevant to external sources. All for the purpose of making complex systems and data types easier and safer to use. 
+> Explanation: Abstraction is the process of tucking away implementation information, keeping only features that are essential and relevant to external sources. All for the purpose of making complex systems and data types easier and safer to use. 
 
 > Example: blink()
->
 
 3. What is the name of the process of deriving from base classes? What is its purpose in this project? (Max 150 words)
 
-> When you derive from a base class it's called 'Inheritance'. Its purpose in the project is to allow subclasses, like Happy() and/or Sad(), to inherit variables 
-> and methods from base classes, like Blinkable(), Smiley() and/or SenseHat().
->
+> When you derive from a base class it's called 'Inheritance'. Its purpose in the project is to allow subclasses , like Happy() and/or Sad(), to inherit variables and methods from base classes, like Blinkable(), Smiley() and/or SenseHat().
 
 ### 2.5. Compare and contrast classes
 
@@ -225,7 +221,11 @@ Compare and contrast the classes Happy and Sad.
    > This action gives controlled access to 'SenseHat'. Using public methods as intermediaries 
    > to get and set data and restricting direct access to data that is declared private. 
    > This process prevents external code from accidentally or intentionally making modifications. 
-   > Ensuring the integrity of the data. ----------->> currently 40 words short. (;w;)
+   > Ensuring the integrity of the data. 
+   > Case in point is '_set_pixels()', a private method in 'SenseHat' that has 12 lines of code that 
+   > are used to set the rgb value of each pixel displayed. To maintain the integrity of the data,
+   > the way to access this method is through the public setter method 'set_pixel()', which emulates the
+   > original code.
    >
 
 ### 2.7. Sad Smileys Can’t Blink (Or Can They?)
@@ -236,45 +236,53 @@ Unlike the `Happy` smiley, the current implementation of the `Sad` smiley does n
 
 1. Does the code's author believe that every `Smiley` should be able to blink? Explain.
 
-> Your answer here
->
+> No, as previously mentioned, `Sad` smiley does not possess the ability to blink. This is due to
+> the lack of blink() method present in the `Sad` class.
 
 2. For those smileys that blink, does the author expect them to blink in the same way? Explain.
 
-> Your answer here
+> For the `Happy` smileys, The author expects them to blink with a small delay applied beforehand. 
 >
 
 3. Referring to the implementation of blink in the Happy and Sad Smiley classes, give a brief explanation of what polymorphism is.
 
-> Your answer here
->
+> In OOP it allows objects of a different class to handled as objects of a common base class.
+> And, Within the context of the Happy and Sad Smiley classes, polymorphism is achieved through
+> method overriding using the inherited base class/es `Smiley` and `Blinkable`. 
+> Through inheritance the subclasses Happy and Sad Smiley classes are able to modify objects
+> of the inherited base class/es.
 
 4. How is inheritance used in the blink method, and why is it important for polymorphism?
+> Inheritance allows the 'Sad' class to inherit the interface from the base class 'Blinkable'.
+> This is important for polymorphism because it lets other parts of the project treat all 'Blinkable' objects
+> the same way, even if they are instances of a different subclass. And, through the use of polymorphism the 'blink' method will be called automatically, depending on the object's type.
 
-> Your answer here
->
-1. **Implement Blink in Sad Class:**
+**Implement Blink in Sad Class:**
 
    - Create a new method called `blink` within the Sad class. Ensure you use the same method signature as in the Happy class:
 
    ```python
-   def blink(self, delay=0.25):
-       pass  # Replace 'pass' with your implementation
+    def blink(self, delay=0.25):
+        self.draw_eyes(wide_open=False)
+        self.show()
+        time.sleep(delay)
+        self.draw_eyes(wide_open=True)
+        self.show()
    ```
 
-2. **Code Implementation:** Implement the code that allows the Sad smiley to blink. Use the implementation from the Happy Smiley as a reference. Ensure your new method functions similarly by controlling the blink duration through the `delay` argument.
+1. **Code Implementation:** Implement the code that allows the Sad smiley to blink. Use the implementation from the Happy Smiley as a reference. Ensure your new method functions similarly by controlling the blink duration through the `delay` argument.
 
-3. **Testing the Implementation:**
+2. **Testing the Implementation:**
 
 - Test the new blink functionality on your Raspberry Pi or within the Python classes provided. You might need to adjust the `main.py` script to incorporate Sad Smiley's new blinking capability.
 
 Include a screenshot of the sad smiley or the modified `main.py`:
 
-![Sad Smiley Blinking](screenshots/sad_blinking.png)
+![Sad Smiley Blinking](screenshots/sad_smiley_blinking.png)
 
 - Observe and document the Sad smiley as it blinks its eyes. Describe any adjustments or issues encountered during implementation.
 
-  > Your answer here
+  > I mistakenly wrote the method before importing 'time' which cause a minor issue with the statement 'time.sleep(delay)' due to this order of operations. Easily fixed by deleting and re-writing the statement after importing 'time'. 
 
   ### 2.8. If It Walks Like a Duck…
 
@@ -282,23 +290,24 @@ Include a screenshot of the sad smiley or the modified `main.py`:
 
   1. **Class Type Analysis:** What kind of class is `Blinkable`? Inspect its superclass for clues about its classification.
 
-     > Your answer here
+  > `Blinkable` is an Abstract Class.
 
   2. **Class Implementation:** `Blinkable` is a class intended to be implemented by other classes. What generic term describes this kind of class, which is designed for implementation by others? **Clue**: Notice the lack of any concrete implementation and the naming convention.
 
-  > Your answer here
+  > A class intended to be implemented by other classes is called a Base class.
 
   3. **OO Principle Identification:** Regarding your answer to question (2), which Object-Oriented (OO) principle does this represent? Choose from the following and justify your answer in 1-2 sentences: Abstraction, Polymorphism, Inheritance, Encapsulation.
 
-  > Your answer here
+  > The Object-Oriented (OO) principle represented is Inheritance.
+  > This is because base classes are a class designed to be inherited, to be implemented by other classes and to define shared behaviours and interfaces.  
 
   4. **Implementation Flexibility:** Explain why you could grant the Sad Smiley a blinking feature similar to the Happy Smiley's implementation, even without directly using `Blinkable`.
 
-  > Your answer here
+  > The blinking feature works without directly inheriting from `Blinkable` because `Blinkable` is an abstract class designed to enforce structure, not enable functionality. Which, whist it's good practice, is not necessary for the feature to run since dynamic languages like python emphasize more on an objects behaviour over its type or class. So, as long as the blink() method exists and works as expected, the feature will function correctly, regardless of whether 'Blinkable' is used.
 
   5. **Concept and Language Specificity:** In relation to your response to question (4), what is this capability known as, and why is it feasible in Python and many other dynamically typed languages but not in most statically typed programming languages like C#? **Clue** This concept is hinted at in the title of this section.
 
-  > Your answer here
+  > The capability is known as 'Duck Typing'. And, the reason it's not feasible in most statically typed programming languages is because, unlike Python that type checks during runtime, type checks for languages like C# happen at compile time. So, even if an object has the correct behaviour, it has to directly inherit from or implement a specific type or interface, otherwise the code won't compile.
 
   ***
 
