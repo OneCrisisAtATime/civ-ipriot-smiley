@@ -236,8 +236,7 @@ Unlike the `Happy` smiley, the current implementation of the `Sad` smiley does n
 
 1. Does the code's author believe that every `Smiley` should be able to blink? Explain.
 
-> No, as previously mentioned, `Sad` smiley does not possess the ability to blink. This is due to
-> the lack of blink() method present in the `Sad` class.
+> Yes, because the author set up the blink feature with an abstract class which suggests that the author intended to share amongst multiple classes. 
 
 2. For those smileys that blink, does the author expect them to blink in the same way? Explain.
 
@@ -320,19 +319,19 @@ Include a screenshot of the sad smiley or the modified `main.py`:
   1. **Defined Colors and Their Location:**
 
      1. Which colors are defined and in which class(s)?
-        > Your answer here
+        >  In the Smiley class the colours white, green, red, yellow and blank are defined.
      2. What type of variables hold these colors? Are the values expected to change during the program's execution? Explain your answer.
-        > Your answer here
+        > These colours hold variables of type 'Tuple' meaning they won't change during execution, as tuples are unchangeable after they're created.
      3. Add the color blue to the appropriate class using the appropriate format and values.
-
+  
   2. **Usage of Color Variables:**
 
      1. In which classes are the color variables used?
-        > Your answer here
+        > Classes using color variables include: Smiley, Sad, Happy
 
   3. **Simple Method to Change Colors:**
   4. What is the easiest way you can think to change the smileys to green? Easiest, not necessarily the best!
-     > Your answer here
+     > YELLOW = GREEN
 
   Here's a revised version of the "Flexible Colors – Step 1" section for the smiley project, incorporating your specifications for formatting and content updates:
 
@@ -344,7 +343,7 @@ Include a screenshot of the sad smiley or the modified `main.py`:
 
   2. **Refactor subclasses to use the `complexion` method:** Modify any subclass that directly accesses the color variable to instead utilize the new `complexion` method. This ensures that color handling is centralized and can be easily modified in the future.
 
-  3. **Determine the applicable Object-Oriented principle:** Consider whether Abstraction, Polymorphism, Inheritance, or Encapsulation best applies to the modifications made in this step.
+  3. **Determine the applicable Object-Oriented principle:** Consider whether Abstraction, Polymorphism, Inheritance, or Encapsulation best applies to the modifications made in this step. [I do NOT have the brain for this Q right now]
 
   4. **Verify the implementation:** Ensure that the modifications function as expected. The smileys should still display in yellow, confirming that the new method correctly replaces the direct color references.
 
